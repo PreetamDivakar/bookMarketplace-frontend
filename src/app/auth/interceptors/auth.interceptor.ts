@@ -24,7 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
 
       // Pass the cloned request instead of the original request
-      return next.handle(cloned);
+      return next.handle(cloned)
     }
     
     // If no token, pass the request without the Authorization header
