@@ -1,0 +1,30 @@
+<header class="header">
+            <span (click)="navigateToHome()" class="flex items-center sm:mb-0 text-decoration-none cursor-pointer">
+                <img src="../../assets/app-logo.svg" class="h-8 mr-3" alt="Flowbite Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">Book Barter Platform</span>
+            </span>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-600 sm:mb-0">
+                <li>
+                    <a href="/home" class="mr-4 hover:underline md:mr-6">Home</a>
+                </li>
+                <li>
+                    <a href="/about" class="mr-4 hover:underline md:mr-6 ">About</a>
+                </li>
+                <li>
+                    <a href="/contact" class="hover:underline">Contact</a>
+                </li>
+                <div class="avatar-container">
+                    <div class="avatar" (click)="toggleDropdown()">
+                        <span>{{ avatar }}</span>
+                    </div>
+
+                    <!-- Dropdown Menu -->
+                    <div class="dropdown" *ngIf="dropdownVisible" (click)="preventClose($event)">
+                        <ul>
+                            <li><a>Profile</a></li>
+                            <li (click)="onLogOut()"><a >Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </ul>
+</header>

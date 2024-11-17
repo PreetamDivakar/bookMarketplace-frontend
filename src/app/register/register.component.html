@@ -1,0 +1,78 @@
+<div class="register-container">
+    <div class="register-form-container">
+        <div class="title-section">
+            <div style="font-size: 2rem; text-align: center;">Register Yourself!!</div>
+        </div>
+        <div class="form-section" style="margin-bottom: 1rem;">
+            <div class="required-fields">
+                <span class="text-red-500 text-sm" style="vertical-align: top;">*</span>
+                Required Fields
+            </div>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div style="margin-bottom: 1rem;">
+                    <label for="first-name" class="block mb-2 text-sm font-medium"
+                        style="margin-bottom: 0.5rem;">First Name <span class="text-red-500 text-sm"
+                            style="vertical-align: top;">*</span> </label>
+                    <input id="first-name"
+                        [ngClass]="{'ring-1 ring-red-500': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched}"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
+                        formControlName="firstName" placeholder="Please enter your first name" />
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label for="lastName" class="block mb-2 text-sm font-medium"
+                        style="margin-bottom: 0.5rem;">Last Name<span class="text-red-500 text-sm"
+                            style="vertical-align: top;">*</span> </label>
+                    <input id="lastName"
+                        [ngClass]="{'ring-1 ring-red-500': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched}"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
+                        formControlName="lastName" placeholder="Please enter your last name" />
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="email" class="block mb-2 text-sm font-medium"
+                        style="margin-bottom: 0.5rem;">Email <span class="text-red-500 text-sm"
+                            style="vertical-align: top;">*</span> </label>
+                    <input id="email"
+                        [ngClass]="{'ring-1 ring-red-500': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
+                        formControlName="email" placeholder="Please enter your email" />
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label for="password" class="block mb-2 text-sm font-medium"
+                        style="margin-bottom: 0.5rem;">Password <span class="text-red-500 text-sm"
+                            style="vertical-align: top;">*</span></label>
+                    <input type="password"
+                        [ngClass]="{'ring-1 ring-red-500': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
+                        id="password" formControlName="password" placeholder="Please enter your password (min. 6 characters required)" />
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label for="confirm-password" class="block mb-2 text-sm font-medium"
+                        style="margin-bottom: 0.5rem;">Confirm Password <span
+                            class="text-red-500 text-sm" style="vertical-align: top;">*</span></label>
+                    <input type="password"
+                        [ngClass]="{'ring-1 ring-red-500': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched}"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
+                        id="confirm-password" formControlName="confirmPassword"
+                        placeholder="Please enter your password again (min. 6 characters required)" />
+                </div>
+
+                <div class="error-fields" style="margin-bottom: 1rem;" *ngIf="checkEqualPasswords()">
+                    <small>Both the entered passwords should match</small>
+                </div>
+
+                <div class="error-fields" style="margin-bottom: 1rem;" *ngIf="requiredFieldsError">
+                    <small>Please enter all fields</small>
+                </div>
+
+                <div class="btn-container">
+                    <button class="action-btn back-btn" (click)="navigateToLogin()">Back to Login</button>
+                    <button class="action-btn submit-btn" type="submit" [disabled]="checkValidity() || checkEqualPasswords()"
+                        (click)="validateForm()">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

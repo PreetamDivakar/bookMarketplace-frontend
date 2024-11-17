@@ -1,0 +1,120 @@
+.book-list-page-container {
+    width: 100%;
+    padding: 1rem 0;
+
+    .book-list {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow: auto;
+
+        .book {
+            background: #FFFFFF;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .title {
+                font-size: 1rem;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+
+                .book-status{
+                    margin-left: 0.5rem;
+                    font-size: 0.6rem;
+                    color: white;
+                    padding: 4px;
+                    border-radius: 0.5rem;
+                }
+                .availabile{
+                    background-color: green;
+                    
+                }
+                .not-available{
+                    background-color: red;
+
+                }
+            }
+
+            .book-details {
+                font-size: 0.75rem;
+
+                .label {
+                    color: gray;
+                }
+            }
+
+            .book-actions {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                .cursor-allowed {
+                    cursor: pointer;
+                }
+
+                .cursor-not-allowed {
+                    cursor: not-allowed;
+                    fill: gray;
+                }
+
+                .add-book-btn {
+                    padding: 8px;
+                    width: 8rem;
+                    font-size: 0.875rem;
+                    background-color: #0DBE5E;
+                    color: #FFFFFF;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    &:disabled{
+                        color: black;
+                        background: #DEDEDE;
+                        cursor: not-allowed;
+                    }
+                }
+                .tooltip1, .tooltip-2 {
+                    position: relative;
+                    display: inline-block;
+                  }
+                  
+                  .tooltip .tooltiptext {
+                    visibility: hidden;
+                    width: 120px;
+                    background-color: black;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 6px;
+                    padding: 5px 0;
+                    position: absolute;
+                    z-index: 1;
+                    top: 150%;
+                    left: 50%;
+                    margin-left: -60px;
+                  }
+                  
+                  .tooltip .tooltiptext::after {
+                    content: "";
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: transparent transparent black transparent;
+                  }
+                  .tooltip:hover .tooltiptext {
+                    visibility: visible;
+                  }
+                  
+            }
+        }
+        
+    }
+}

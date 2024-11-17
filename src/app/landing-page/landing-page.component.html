@@ -1,0 +1,13 @@
+<div class="landing-page-container">
+    <app-header></app-header>
+    <div class="landing-page-body">
+        <div class="landing-page-title-section">
+            <div class="user-name">
+                Welcome {{ user?.firstName}} {{ user?.lastName }},
+            </div>
+            <button class="add-book-btn" type="submit" (click)="addBook()">+ Add Book</button>
+        </div>
+        <router-outlet></router-outlet>
+        <app-book-landing-page></app-book-landing-page>
+    </div>
+</div>

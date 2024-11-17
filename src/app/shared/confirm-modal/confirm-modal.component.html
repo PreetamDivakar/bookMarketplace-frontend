@@ -1,0 +1,16 @@
+<div class="confirm-modal-backdrop" (click)="closeModal()"></div>
+<div class="confirm-modal-container">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>{{ title }}</h3>
+            <button class="close-btn" (click)="closeModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <ng-content></ng-content>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" (click)="closeModal()">NO</button>
+            <button class="btn btn-primary" (click)="confirmAction()">YES</button>
+        </div>
+    </div>
+</div>
