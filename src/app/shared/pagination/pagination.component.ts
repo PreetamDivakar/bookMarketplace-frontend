@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, SimpleChange } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 
 @Component({
@@ -6,45 +6,67 @@ import { UtilService } from 'src/app/services/util.service';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements AfterViewInit{
+export class PaginationComponent {
   @Input() currentPage: number = 1;
-  @Input() itemsPerPage:number = 10;
+  @Input() itemsPerPage: number = 10;
   paginationConfig: any;
   totalItems: number = 0;
   itemsPerPageArray = [10, 20, 50, 100];
-  isPrevDisabled = false;
-  isNextDisabled = false;
 
-  constructor(private utilService: UtilService){}
-
-  ngOnInit(): void{
-    this.currentPage = 1;
+  constructor(private utilService: UtilService) {
     this.utilService.paginationConfigSubject
       .subscribe((res: any) => {
         this.paginationConfig = res;
-        this.isPrevDisabled = this.paginationConfig?.prev ? false : true;
-        this.isNextDisabled = this.paginationConfig?.next ? false : true;
+        console.log(res)
+        this.currentPage = res?.currentPage;
       });
   }
 
-  ngAfterViewInit(): void {
-      
-      
+  ngOnChanges(changes: any): void{
+    if(changes){
+      this.currentPage = changes?.currentPage?.currentValue || 1;
+      this.itemsPerPage = changes?.itemsPerPage?.currentValue || 10;
+    }
   }
 
-  onClickPrev(): void{
-    if(this.currentPage > 1){
+  isPreviousDisabled(): any {
+    if (this.currentPage === 1) {
+      return true;
+    }
+    return false;
+  }
+
+  isNextDisabled(): any {
+    console.log(this.paginationConfig?.totalPages)
+    if (this.currentPage === this.paginationConfig?.totalPages) {
+      return true;
+    }
+    return false;
+  }
+
+  onClickPrev(): void {
+    if (this.currentPage > 1) {
       this.currentPage = this.currentPage - 1;
       this.submitPaginationInfo();
     }
   }
 
-  onClickNext(): void{
-      this.currentPage = this.currentPage + 1;
-      this.submitPaginationInfo();
+  onClickNext(): void {
+    this.currentPage = this.currentPage + 1;
+    this.submitPaginationInfo();
   }
 
-  onPageChange(event: any): void{
+  onCurrentPageChange(): void {
+    if (this.currentPage <= 0) {
+      this.currentPage = 1;
+    }
+    else if (this.currentPage > this.paginationConfig?.totalPages) {
+      this.currentPage = this.paginationConfig?.totalPages;
+    }
+    this.submitPaginationInfo();
+  }
+
+  onPageLimitChange(event: any): void {
     this.currentPage = 1;
     this.submitPaginationInfo();
   }

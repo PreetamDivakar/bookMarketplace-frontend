@@ -65,8 +65,8 @@ export class AddBookComponent {
           if (res?.success) {
             this.notificationService.success('Book Updated Successfully', 'Success');
             this.bookForm.reset();
-            this.navigateToHome();
             this.utilService.refreshBooksListSubject.next({data: true});
+            this.navigateToHome();
           }
           else {
             this.notificationService.error('Some problem encountered', 'Error');
@@ -102,7 +102,7 @@ export class AddBookComponent {
   }
 
   navigateToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/home');
   }
 
 }

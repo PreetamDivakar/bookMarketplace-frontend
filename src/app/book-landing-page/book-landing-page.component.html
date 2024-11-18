@@ -12,6 +12,6 @@
         <div class="no-results" *ngIf="booksListCount === 0">
             <span>No results found</span>
           </div>
-        <app-book-listing *ngIf="booksListCount > 0" [booksList]="booksList"></app-book-listing>
+        <app-book-listing *ngIf="booksListCount > 0" [booksList]="booksList" (deleteBook)="onDeleteBook($event)"></app-book-listing>
     </div>
 </div>

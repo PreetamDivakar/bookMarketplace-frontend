@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { ApiService } from '../services/api.service';
 import { AuthApis, BookApis } from '../constants/api.constants';
 import { AuthServiceService } from '../auth/services/auth-service.service';
 import { UtilService } from '../services/util.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-landing-page',
   templateUrl: './book-landing-page.component.html',
   styleUrls: ['./book-landing-page.component.scss']
 })
-export class BookLandingPageComponent {
+export class BookLandingPageComponent implements AfterViewInit{
   private bookSearchSubject: Subject<string> = new Subject<string>();
   currentUser: any;
   limit = 10;
@@ -121,7 +122,7 @@ export class BookLandingPageComponent {
     }
   ]
 
-  constructor(private apiService: ApiService, private authService: AuthServiceService, private utilService: UtilService) {
+  constructor(private apiService: ApiService, private authService: AuthServiceService, private utilService: UtilService, private notificationService: ToastrService) {
     this.bookSearchSubject
       .pipe(
         debounceTime(300), // Wait 300ms after the last keystroke
@@ -136,6 +137,9 @@ export class BookLandingPageComponent {
 
   ngOnInit(): void{
     this.currentUser = this.authService.getUser();
+  }
+  
+  ngAfterViewInit(): void{
     this.getBooksList();
   }
 
@@ -145,8 +149,9 @@ export class BookLandingPageComponent {
       this.booksListCount = res?.count;
       if(res){
         let _books = res?.data;
-        this.paginationConfig = res?.pagination;
-        this.utilService.paginationConfigSubject.next(res?.pagination);
+        this.page = res?.currentPage;
+        this.paginationConfig = {totalBooks: res?.totalBooks, totalPages: res?.totalPages, currentPage: res?.currentPage};
+        this.utilService.paginationConfigSubject.next({totalBooks: res?.totalBooks, totalPages: res?.totalPages, currentPage: res?.currentPage});
         this.booksList = _books.map((res: any) => {
           return{
             ...res,
@@ -156,6 +161,22 @@ export class BookLandingPageComponent {
         });
       }
     })
+  }
+
+  async onDeleteBook(book: any) {
+    await this.apiService.put(BookApis.removeBook(book?._id), {})
+      .subscribe((res: any) => {
+        if (res?.success) {
+          this.notificationService.success('Book Removed Successfully', 'Success');
+          this.page = 1;
+          this.limit = 10;
+          this.utilService.paginationSubject.next({page: this.page, limit: this.limit});
+          this.getBooksList();
+        }
+        else {
+          this.notificationService.error('Some problem encountered', 'Error');
+        }
+      });
   }
 
   allowEditOrDelete(id: any): boolean{
@@ -176,8 +197,9 @@ export class BookLandingPageComponent {
   updateBooksList(): void{
     this.utilService.refreshBooksListSubject.subscribe(
       (res: any) => {
-        if(res?.data)
+        if(res?.data){
           this.getBooksList();
+        }
       }
     )
   }

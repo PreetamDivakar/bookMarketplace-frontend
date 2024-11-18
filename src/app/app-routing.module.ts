@@ -32,9 +32,6 @@ const routes: Routes = [
   {
     path: 'edit-book/:id', component: AddBookComponent, canActivate: [AuthGuard]
   },
-  {
-    path: 'book-details/:id', component: AddBookComponent, canActivate: [AuthGuard]
-  }
 
 ];
 

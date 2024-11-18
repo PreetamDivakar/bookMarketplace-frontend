@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChange } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange } from '@angular/core';
 import { AuthServiceService } from '../auth/services/auth-service.service';
 import { ApiService } from '../services/api.service';
 import { BookApis } from '../constants/api.constants';
@@ -15,19 +15,21 @@ export class BookListingComponent implements OnChanges {
 
   @Input() booksList: any = [];
   @Input() itemsPerPage: any = 10;
-  @Input() currentPage: any;
+  @Input() currentPage: any = 1;
+  @Output() deleteBook = new EventEmitter<any>();
 
-  constructor(private apiService: ApiService, private notificationService: ToastrService, private router: Router, private utilService: UtilService) { }
+  constructor(private apiService: ApiService, private notificationService: ToastrService, private router: Router, private utilService: UtilService) {
+    this.utilService.paginationSubject
+    .subscribe((res: any) => {
+      this.itemsPerPage = res?.limit;
+    })
+   }
 
   ngOnInit() {
-    this.utilService.paginationSubject
-      .subscribe((res: any) => {
-        this.itemsPerPage = res?.limit;
-      });
   }
 
   ngOnChanges(changes: any): void {
-    if (changes?.booksList) {
+    if (changes) {
       this.booksList = [...changes?.booksList?.currentValue];
     }
 
@@ -42,16 +44,7 @@ export class BookListingComponent implements OnChanges {
   }
 
   onDeleteBook(book: any): void {
-    this.apiService.put(BookApis.removeBook(book?._id), {})
-      .subscribe((res: any) => {
-        if (res?.success) {
-          this.notificationService.success('Book Removed Successfully', 'Success');
-          this.utilService.refreshBooksListSubject.next({data: true})
-        }
-        else {
-          this.notificationService.error('Some problem encountered', 'Error');
-        }
-      });
+    this.deleteBook.emit(book);
   }
 
   requestBook(book: any) {

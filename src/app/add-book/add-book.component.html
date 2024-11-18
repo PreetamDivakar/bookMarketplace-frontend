@@ -6,8 +6,8 @@
             <div *ngIf="detailsView" style="font-size: 2rem; text-align: center;">Book Details</div>
         </div>
         <div class="form-section" style="margin-bottom: 1rem;">
-            <div class="required-fields">
-                <span class="text-red-500 text-sm" style="vertical-align: top;" *ngIf="!detailsView">*</span>
+            <div class="required-fields"  *ngIf="!detailsView">
+                <span class="text-red-500 text-sm" style="vertical-align: top;">*</span>
                 Required Fields
             </div>
             <form [formGroup]="bookForm">
