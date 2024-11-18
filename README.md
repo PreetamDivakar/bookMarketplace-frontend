@@ -32,7 +32,7 @@ This is a frontend application developed in Angular, Book Exchange Platform - A 
 # Steps to run locally
 
 ## Clone the Repository
-* Run `git clone https://github.com/your-username/book-exchange-frontend.git`
+* Run `git clone https://github.com/RAHULSAI14231/book-barter-platform-frontend.git`
 
 ## Change the directory to book-exchange-platform
 * Run `cd book-exchange-frontend`
