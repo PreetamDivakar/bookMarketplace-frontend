@@ -35,7 +35,7 @@ This is a frontend application developed in Angular, Book Exchange Platform - A 
 * Run `git clone https://github.com/RAHULSAI14231/book-barter-platform-frontend.git`
 
 ## Change the directory to book-exchange-platform
-* Run `cd book-exchange-frontend`
+* Run `cd book-barter-platform-frontend`
 
 ## Install Dependencies
 `npm install`
@@ -53,9 +53,3 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
