@@ -34,7 +34,7 @@ This is a frontend application developed in Angular, Book Exchange Platform - A 
 ## Clone the Repository
 * Run `git clone https://github.com/RAHULSAI14231/book-barter-platform-frontend.git`
 
-## Change the directory to book-exchange-platform
+## Change the directory to book-barter-platform-frontend
 * Run `cd book-barter-platform-frontend`
 
 ## Install Dependencies
@@ -44,7 +44,7 @@ This is a frontend application developed in Angular, Book Exchange Platform - A 
 `npm run start`
 
 ## Open the Application in the Browser
-`http://localhost: 4200`
+`http://localhost:4200`
 
 ## Build
 
