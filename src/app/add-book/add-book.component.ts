@@ -6,6 +6,7 @@ import { ApiService } from '../services/api.service';
 import { BookApis } from '../constants/api.constants';
 import { ToastrService } from 'ngx-toastr';
 import { AuthServiceService } from '../auth/services/auth-service.service';
+import { UtilService } from '../services/util.service';
 
 @Component({
   selector: 'app-add-book',
@@ -21,7 +22,7 @@ export class AddBookComponent {
   bookId: any;
   detailsView = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService, private authService: AuthServiceService, private notificationService: ToastrService, private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService, private authService: AuthServiceService, private notificationService: ToastrService, private route: ActivatedRoute, private utilService: UtilService) {
     this.bookForm = this.formBuilder.group({
       title: ['', [Validators.required]], // Email validation
       author: ['', [Validators.required]],
@@ -58,6 +59,21 @@ export class AddBookComponent {
         ...this.bookForm.value,
         userId: this.currentUser?._id || ''
       }
+      this.bookId ? this.apiService.put(BookApis.updateBook(this.bookId), requestObj)
+      .subscribe(
+        (res: any) => {
+          if (res?.success) {
+            this.notificationService.success('Book Updated Successfully', 'Success');
+            this.bookForm.reset();
+            this.navigateToHome();
+            this.utilService.refreshBooksListSubject.next({data: true});
+          }
+          else {
+            this.notificationService.error('Some problem encountered', 'Error');
+          }
+
+        }
+      ) :
       this.apiService.post(BookApis.createBook, requestObj)
         .subscribe(
           (res: any) => {
@@ -65,6 +81,7 @@ export class AddBookComponent {
               this.notificationService.success('Book Added Successfully', 'Success');
               this.bookForm.reset();
               this.navigateToHome();
+              this.utilService.refreshBooksListSubject.next({data: true})
             }
             else {
               this.notificationService.error('Some problem encountered', 'Error');

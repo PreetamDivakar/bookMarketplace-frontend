@@ -7,13 +7,13 @@
         </div>
         <div class="form-section" style="margin-bottom: 1rem;">
             <div class="required-fields">
-                <span class="text-red-500 text-sm" style="vertical-align: top;">*</span>
+                <span class="text-red-500 text-sm" style="vertical-align: top;" *ngIf="!detailsView">*</span>
                 Required Fields
             </div>
-            <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="bookForm">
                 <div style="margin-bottom: 1rem;">
                     <label for="title" class="block mb-2 text-sm font-medium" style="margin-bottom: 0.5rem;">Book Title
-                        <span class="text-red-500 text-sm" style="vertical-align: top;">*</span> </label>
+                        <span class="text-red-500 text-sm" style="vertical-align: top;" *ngIf="!detailsView">*</span> </label>
                     <input id="title"
                         [ngClass]="{'ring-1 ring-red-500': bookForm.get('title')?.invalid && bookForm.get('title')?.touched}"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
@@ -22,7 +22,7 @@
 
                 <div style="margin-bottom: 1rem;">
                     <label for="author" class="block mb-2 text-sm font-medium" style="margin-bottom: 0.5rem;">Author
-                        Name<span class="text-red-500 text-sm" style="vertical-align: top;">*</span> </label>
+                        Name<span class="text-red-500 text-sm" style="vertical-align: top;" *ngIf="!detailsView">*</span> </label>
                     <input id="author"
                         [ngClass]="{'ring-1 ring-red-500': bookForm.get('author')?.invalid && bookForm.get('author')?.touched}"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
@@ -30,7 +30,7 @@
                 </div>
                 <div style="margin-bottom: 1rem;">
                     <label for="genre" class="block mb-2 text-sm font-medium" style="margin-bottom: 0.5rem;">Genre<span
-                            class="text-red-500 text-sm" style="vertical-align: top;">*</span> </label>
+                            class="text-red-500 text-sm" style="vertical-align: top;" *ngIf="!detailsView">*</span> </label>
                     <input id="genre"
                         [ngClass]="{'ring-1 ring-red-500': bookForm.get('genre')?.invalid && bookForm.get('genre')?.touched}"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
@@ -40,7 +40,7 @@
                 <div style="margin-bottom: 1rem;">
                     <label for="condition" class="block mb-2 text-sm font-medium"
                         style="margin-bottom: 0.5rem;">Condition of Book
-                        <span class="text-red-500 text-sm" style="vertical-align: top;">*</span></label>
+                        <span class="text-red-500 text-sm" style="vertical-align: top;" *ngIf="!detailsView">*</span></label>
                     <input id="condition"
                         [ngClass]="{'ring-1 ring-red-500': bookForm.get('condition')?.invalid && bookForm.get('condition')?.touched}"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5"
@@ -50,7 +50,7 @@
                 <div style="margin-bottom: 1rem;">
                     <label for="availability" class="block mb-2 text-sm font-medium"
                         style="margin-bottom: 0.5rem;">Availability Status of your Book <span class="text-red-500 text-sm"
-                            style="vertical-align: top;">*</span></label>
+                            style="vertical-align: top;" *ngIf="!detailsView">*</span></label>
                     <select placeholder="Specify whether the book availabiltiy status" formControlName="availabilityStatus" id="availability"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#0DBE5E] focus:border-[#0DBE5E] block w-full p-2.5">
                         <option value="" disabled selected>Select your option</option>
@@ -61,8 +61,10 @@
 
                 <div class="btn-container">
                     <button class="action-btn back-btn" (click)="navigateToHome()">Back to Home</button>
-                    <button *ngIf="!detailsView" class="action-btn submit-btn" type="submit" [disabled]="checkValidity()"
+                    <button *ngIf="!detailsView && !this.bookId" class="action-btn submit-btn" type="submit" [disabled]="checkValidity()"
                         (click)="validateForm()">ADD</button>
+                        <button *ngIf="!detailsView && this.bookId" class="action-btn submit-btn" type="submit" [disabled]="checkValidity()"
+                        (click)="validateForm()">SAVE</button>
                 </div>
             </form>
         </div>

@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class UtilService {
   public paginationSubject: Subject<any> = new Subject<any>();
   public paginationConfigSubject: Subject<any> = new Subject<any>();
+  public refreshBooksListSubject: Subject<any> = new Subject<any>();
   constructor() { }
 
 }

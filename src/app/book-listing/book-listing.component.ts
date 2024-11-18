@@ -12,14 +12,12 @@ import { UtilService } from '../services/util.service';
   styleUrls: ['./book-listing.component.scss']
 })
 export class BookListingComponent implements OnChanges {
-  
+
   @Input() booksList: any = [];
   @Input() itemsPerPage: any = 10;
   @Input() currentPage: any;
 
-  
-
-  constructor(private apiService: ApiService, private notificationService: ToastrService, private router: Router, private utilService: UtilService){}
+  constructor(private apiService: ApiService, private notificationService: ToastrService, private router: Router, private utilService: UtilService) { }
 
   ngOnInit() {
     this.utilService.paginationSubject
@@ -28,34 +26,35 @@ export class BookListingComponent implements OnChanges {
       });
   }
 
-  ngOnChanges(changes: any): void{
-    if(changes?.booksList){
+  ngOnChanges(changes: any): void {
+    if (changes?.booksList) {
       this.booksList = [...changes?.booksList?.currentValue];
     }
 
   }
 
-  onEditBook(book: any): void{
+  onEditBook(book: any): void {
     this.router.navigate([`edit-book/${book?._id}`])
   }
 
-  getBookDetails(book: any): void{
+  getBookDetails(book: any): void {
     this.router.navigate([`book-details/${book?._id}`])
   }
 
-  onDeleteBook(book: any): void{
+  onDeleteBook(book: any): void {
     this.apiService.put(BookApis.removeBook(book?._id), {})
-    .subscribe((res: any) => {
-      if(res?.success){
-        this.notificationService.success('Book Removed Successfully', 'Success');
-      }
-      else{
-        this.notificationService.error('Some problem encountered', 'Error');
-      }
-    });
+      .subscribe((res: any) => {
+        if (res?.success) {
+          this.notificationService.success('Book Removed Successfully', 'Success');
+          this.utilService.refreshBooksListSubject.next({data: true})
+        }
+        else {
+          this.notificationService.error('Some problem encountered', 'Error');
+        }
+      });
   }
 
-  requestBook(book: any){
+  requestBook(book: any) {
     this.notificationService.success('Book Requested Successfully', 'Success');
   }
 }

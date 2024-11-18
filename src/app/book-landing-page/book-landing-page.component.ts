@@ -131,9 +131,8 @@ export class BookLandingPageComponent {
         this.filterBooks(searchTerm);
       });
       this.getPaginationUpdates();
+      this.updateBooksList();
   }
-
-  
 
   ngOnInit(): void{
     this.currentUser = this.authService.getUser();
@@ -172,6 +171,15 @@ export class BookLandingPageComponent {
         this.getBooksList();
       }
     })
+  }
+
+  updateBooksList(): void{
+    this.utilService.refreshBooksListSubject.subscribe(
+      (res: any) => {
+        if(res?.data)
+          this.getBooksList();
+      }
+    )
   }
 
   onSearchBook(): void {
