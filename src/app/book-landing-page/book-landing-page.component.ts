@@ -209,12 +209,15 @@ export class BookLandingPageComponent implements AfterViewInit{
   }
 
   filterBooks(searchTerm: string): void{
-    const _searchTerm = searchTerm.toLowerCase().trim();
+    const _searchTerm = searchTerm.trim();
+    this.bookSearchTerm = _searchTerm;
+    this.page = 1; // Reset to first page when searching
     this.getBooksList();
   }
 
   clearResults(): void{
     this.bookSearchTerm = '';
-    this.bookSearchSubject.next('');
+    this.page = 1; // Reset to first page when clearing
+    this.getBooksList();
   }
 }
