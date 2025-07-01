@@ -43,6 +43,16 @@ export class HeaderComponent {
     this.router.navigate(['/home']);
   }
 
+  viewProfile(): void {
+    this.dropdownVisible = false;
+    this.router.navigate(['/profile']);
+  }
+
+  addBook(): void {
+    this.dropdownVisible = false;
+    this.router.navigate(['/add-book']);
+  }
+
   onLogOut(): void{
     this.authService.removeToken();
     this.router.navigate(['/login']);

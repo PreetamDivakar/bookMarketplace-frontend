@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../auth/services/auth-service.service';
 import { ApiService } from '../services/api.service';
@@ -11,6 +11,7 @@ import { AuthApis } from '../constants/api.constants';
 })
 export class LandingPageComponent {
   user: any;
+  @ViewChild('booksSection') booksSection!: ElementRef;
 
   constructor(private router: Router, private apiService: ApiService,private authService: AuthServiceService){}
 
@@ -34,6 +35,13 @@ export class LandingPageComponent {
 
   addBook(){
     this.router.navigate(['/add-book'])
+  }
+
+  scrollToBooks() {
+    this.booksSection.nativeElement.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'start'
+    });
   }
   
 }

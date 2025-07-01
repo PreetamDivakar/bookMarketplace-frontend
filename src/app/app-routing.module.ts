@@ -6,6 +6,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { AuthGuard } from './auth.guard';
 import { AddBookComponent } from './add-book/add-book.component';
+import { AboutComponent } from './about/about.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,12 @@ const routes: Routes = [
   },
   {
     path: 'edit-book/:id', component: AddBookComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'about', component: AboutComponent
+  },
+  {
+    path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]
   },
 
 ];

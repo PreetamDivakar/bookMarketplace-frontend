@@ -1,13 +1,28 @@
 <div class="landing-page-container">
     <app-header></app-header>
     <div class="landing-page-body">
-        <div class="landing-page-title-section">
-            <div class="user-name">
-                Welcome {{ user?.firstName}} {{ user?.lastName }},
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h1 class="welcome-title">
+                    Welcome back, {{ user?.firstName}} {{ user?.lastName }}! 👋
+                </h1>
+                <p class="welcome-subtitle">
+                    Discover amazing books and connect with fellow readers
+                </p>
+                <div class="action-buttons">
+                    <button class="add-book-btn primary" (click)="addBook()">
+                        📚 Add New Book
+                    </button>
+                    <button class="browse-btn secondary" (click)="scrollToBooks()">
+                        🔍 Browse Books
+                    </button>
+                </div>
             </div>
-            <button class="add-book-btn" type="submit" (click)="addBook()">+ Add Book</button>
         </div>
-        <app-book-landing-page>
-        </app-book-landing-page>
+        
+        <div class="books-section" #booksSection>
+            <h2 class="section-title">Available Books</h2>
+            <app-book-landing-page></app-book-landing-page>
+        </div>
     </div>
 </div>

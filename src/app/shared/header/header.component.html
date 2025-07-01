@@ -5,13 +5,10 @@
             </span>
             <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-600 sm:mb-0">
                 <li>
-                    <a href="/home" class="mr-4 hover:underline md:mr-6">Home</a>
+                    <a routerLink="/home" class="mr-4 hover:underline md:mr-6">Home</a>
                 </li>
                 <li>
-                    <a href="/about" class="mr-4 hover:underline md:mr-6 ">About</a>
-                </li>
-                <li>
-                    <a href="/contact" class="hover:underline">Contact</a>
+                    <a routerLink="/about" class="mr-4 hover:underline md:mr-6 ">About</a>
                 </li>
                 <div class="avatar-container">
                     <div class="avatar" (click)="toggleDropdown()">
@@ -21,8 +18,9 @@
                     <!-- Dropdown Menu -->
                     <div class="dropdown" *ngIf="dropdownVisible" (click)="preventClose($event)">
                         <ul>
-                            <li><a>Profile</a></li>
-                            <li (click)="onLogOut()"><a >Log Out</a></li>
+                            <li (click)="viewProfile()"><a>👤 Profile</a></li>
+                            <li (click)="addBook()"><a>📚 Add Book</a></li>
+                            <li (click)="onLogOut()"><a>🚪 Log Out</a></li>
                         </ul>
                     </div>
                 </div>

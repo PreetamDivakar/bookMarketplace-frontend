@@ -19,6 +19,8 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HeaderComponent } from './shared/header/header.component';
 import { AddBookComponent } from './add-book/add-book.component';
+import { AboutComponent } from './about/about.component';
+import { ProfileComponent } from './profile/profile.component';
 
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.component';
@@ -37,6 +39,8 @@ import { ConfirmModalComponent } from './shared/confirm-modal/confirm-modal.comp
     PaginationComponent,
     HeaderComponent,
     AddBookComponent,
+    AboutComponent,
+    ProfileComponent,
     ConfirmModalComponent,
   ],
   imports: [
